@@ -27,15 +27,16 @@ GET /tables/{id}
 <Content-Type: application/json
 {
   "id": "/tables/{id}",
+  "version": "20131018T131415Z",
   "name": "table name",
   "fields": [ {
     "id": "xxxx",
-    "fieldname": "field name",
-    "fieldtype": "string"
+    "name": "field name",
+    "type": "string"
   ], [
     "id": "yyy",
-    "fieldname": "another field",
-    "fieldtype": "string"
+    "name": "another field",
+    "type": "string"
   ]
 }
 
@@ -45,12 +46,12 @@ POST /tables
   "name": "table name",
   "fields": [{
     "id": "xxxx",
-    "fieldname": "field name",
-    "fieldtype": "string"
+    "name": "field name",
+    "type": "string"
   ], [
     "id": "yyy",
-    "fieldname": "another field",
-    "fieldtype": "string"
+    "name": "another field",
+    "type": "string"
   }]
 }
 < 200
@@ -63,14 +64,15 @@ Edit a table defintion
 PUT /tables/{id}
 {
   "name": "new table name",
+  "version": "20131018T131415Z",
   "fields": [{
     "id": "xxxx",
-    "fieldname": "field name",
-    "fieldtype": "string"
+    "name": "field name",
+    "type": "string"
   ], [
     "id": "yyy",
-    "fieldname": "another field",
-    "fieldtype": "string"
+    "name": "another field",
+    "type": "string"
   }]
 }
 < 200
