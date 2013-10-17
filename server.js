@@ -1,7 +1,6 @@
 /* jshint node: true */
 'use strict';
-var restify = require('restify'),
-    mongoose = require('mongoose')
+var restify = require('restify')
 
 var server = restify.createServer(),
     port = process.env.PORT || 8081;
