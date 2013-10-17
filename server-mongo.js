@@ -41,16 +41,17 @@ mongodbServer.use(restify.bodyParser());
 
 // Create a schema for our data
 var MessageSchema = new Schema({
-  message: String,
+  type: String, 
+  data: {}, //schemaless (i.e. Mixed)
   user: String,
   date: Date,
   status: String,
   history: String
 });
 
+
 // Use the schema to register a model
-mongoose.model('Event', MessageSchema); 
-var Message = mongoose.model('Event');
+var Message = mongoose.model('Events', MessageSchema);
 
 
 // This function is responsible for returning all entries for the Message model
@@ -70,13 +71,14 @@ var getMessages = function(req, res, next) {
 var postMessage = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  // Create a new message model, fill it up and save it to Mongodb
-  var message = new Message(); 
   
   console.log("mongodbServer postUser: " + req.params.user + " postMessage: " + req.params.message);
 
+  // Create a new message model, fill it up and save it to Mongodb
+  var message = new Message(); 
   message.user = req.params.user;
-  message.message = req.params.message;
+  message.type = req.params.type;
+  message.data = req.params.data;
   message.date = new Date();
   message.status = "pending";
   message.save(function () {
