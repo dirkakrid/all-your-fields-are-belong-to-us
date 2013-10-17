@@ -1,7 +1,8 @@
 /* jshint node: true */
 'use strict';
 var restify = require('restify'),
-	tables = require('./tables')	
+	tables = require('./tables'),
+	events = require('./events');
 
 
 var server = restify.createServer(),
@@ -15,6 +16,7 @@ function respond(req, res, next) {
 
 server.get('/hello/:name', respond);
 tables.register(server);
+events.register(server);
 
 
 server.listen(port);
