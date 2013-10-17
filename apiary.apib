@@ -1,0 +1,158 @@
+HOST: http://www.google.com/
+
+--- All the fields ---
+
+---
+API for managing fields for dynamic schemas
+---
+
+--
+Schema
+--
+
+Get the list of known tables
+GET /tables
+< 200
+<Content-Type: application/json
+{ 
+"tables": [ { 
+    "id": "/tables/{id}",
+    "id": "/tables/{id2}"
+    }
+] }
+
+Get the schema defintion for a specific table
+GET /tables/{id}
+< 200
+<Content-Type: application/json
+{
+  "id": "/tables/{id}",
+  "name": "table name",
+  "fields": [ {
+    "id": "xxxx",
+    "fieldname": "field name",
+    "fieldtype": "string"
+  ], [
+    "id": "yyy",
+    "fieldname": "another field",
+    "fieldtype": "string"
+  ]
+}
+
+Create a new table definition
+POST /tables
+{
+  "name": "table name",
+  "fields": [{
+    "id": "xxxx",
+    "fieldname": "field name",
+    "fieldtype": "string"
+  ], [
+    "id": "yyy",
+    "fieldname": "another field",
+    "fieldtype": "string"
+  }]
+}
+< 200
+<Content-Type: application/json
+{
+  "eventid": "eventidxxx"
+}
+
+Edit a table defintion
+PUT /tables/{id}
+{
+  "name": "new table name",
+  "fields": [{
+    "id": "xxxx",
+    "fieldname": "field name",
+    "fieldtype": "string"
+  ], [
+    "id": "yyy",
+    "fieldname": "another field",
+    "fieldtype": "string"
+  }]
+}
+< 200
+<Content-Type: application/json
+{
+  "eventid": "eventidxxx"
+}
+
+Delete a table definition
+DELETE /tables/{id}
+< 200
+<Content-Type: application/json
+{
+  "eventid": "eventidxxx"
+}
+
+--
+Event store access
+--
+
+Get the status of an event
+GET /events/{id}
+< 100
++++++
+< 200
+{
+  "id" : "/object_type/{id}"
+}
++++++
+< 409
++++++
+< 410
+
+--
+Data
+--
+
+Get a list of the data rows
+GET /tables/{tableid}/data
+< 200
+{[
+  "/tables/tableid_xxx/data/12345",
+  "/tables/tableid_xxx/data/12346"
+]}
+
+Get the data for a specific row
+GET /tables/{tableid}/data/{id}
+< 200
+{
+  "id": "/tables/tableid_xxx/data/12345",
+  "version": "20131018T131415Z",
+  "xxx": "field value 1",
+  "yyy": "another field value"
+}
+
+Add a row
+POST /tables/{tableid}/data
+{
+  "xxx": "field value 1",
+  "yyy": "another field value"
+}
+< 200
+{
+  "eventid": "eventidxxx"
+}
+
+Edit a row
+PUT /tables/{tableid}/data/{id}
+{
+  "id": "/tables/tableid_xxx/data/12345",
+  "version": "20131018T131415Z",
+  "xxx": "field value 1",
+  "yyy": "another field value"
+}
+< 200
+{
+  "eventid": "eventidxxx"
+}
+
+Delete a row
+DELETE /tables/{tableid}/data/{id}
+< 200
+{
+  "eventid": "eventidxxx"
+}
