@@ -6,6 +6,7 @@
     "node": "0.10.x"
   },
   "dependencies": {
-    "restify": "1.4.x"
+    "restify": "1.4.x",
+    "mongoose": "2.6.x"
   }
 }
