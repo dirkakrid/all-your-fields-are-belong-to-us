@@ -1,14 +1,22 @@
+var repo = require('./eventStoreRepo');
+
 var events = {};
 
-events.getEventStatus = function (req, resp, next) {
-	var result = {
-		id: "/tables/1"
-	}
+events.getAll = function (req, resp, next) {
+	repo.getAll(function(err,data){
+		resp.status = 200;
+		resp.send(data);
+	});
+};
 
-	resp.send(JSON.stringify(result));
-	resp.status = 200;
-}
+events.getOne = function (req, resp, next) {
+	repo.getOne(req.params.id, function(err,data){
+		resp.status = 200;
+		resp.send(data);
+	});
+};
 
 exports.register = function (server) {
-	server.get('/events/:id', events.getEventStatus);
+	server.get('/events', events.getAll);
+	server.get('/events/:id', events.getOne);
 }
