@@ -6,8 +6,8 @@ tableData.getAll = function(req, resp, next) {
 
 	var result = {
 		rows:[
-			tableUrl + "/data/1",
-			tableUrl + "/data/2"
+			tableUrl + "/rows/1",
+			tableUrl + "/rows/2"
 		]
 	};
 
@@ -20,7 +20,7 @@ tableData.getOne = function(req, resp, next) {
 	    tableUrl = "/tables/tableid";
 
 	var result = {
-		id: tableUrl + "/data/" + req.params.id,
+		id: tableUrl + "/rows/" + req.params.id,
 		"xxx": "Value 1",
 		"yyy": "Value 2"
 	}
@@ -51,7 +51,7 @@ tableData.editRow = function(req, resp, next) {
 	// TODO: Send command to add row to event queue
 
 	var result = {
-		eventId: "123456		"
+		eventId: "123456"
 	}
 
 	
@@ -75,9 +75,9 @@ tableData.deleteRow = function(req, resp, next) {
 }
 
 exports.register = function(server) {
-	server.get('/tables/:tableid/data', tableData.getAll);
-	server.get('/tables/:tableid/data/:id', tableData.getOne);
-	server.post('/tables/:tableid/data', tableData.addRow);
-	server.put('/tables/:tableid/data/:id', tableData.editRow);
-	server.del('/tables/:tableid/data/:id', tableData.deleteRow);
+	server.get('/tables/:tableid/rows', tableData.getAll);
+	server.get('/tables/:tableid/rows/:id', tableData.getOne);
+	server.post('/tables/:tableid/rows', tableData.addRow);
+	server.put('/tables/:tableid/rows/:id', tableData.editRow);
+	server.del('/tables/:tableid/rows/:id', tableData.deleteRow);
 }
