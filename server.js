@@ -1,10 +1,9 @@
 /* jshint node: true */
 'use strict';
 var restify = require('restify'),
-	tables = require('./tables/api'),
-	tableEvents = require('./tables/events'),
-	events = require('./eventStore/api'),
-	tableRows = require('./api/tableRows'),
+	tableApi = require('./table/tableApi'),
+	eventApi = require('./eventStore/eventStoreApi'),
+	rowsApi = require('./api/tableRows'),
 	mongoose = require('./mongodb');
 
 var restify = require('restify')
@@ -21,9 +20,9 @@ function respond(req, res, next) {
 //	server.use(restify.bodyParser({ mapParams: true }));
 
 server.get('/hello/:name', respond);
-tables.register(server);
-events.register(server);
-tableRows.register(server);
+tableApi.register(server);
+eventApi.register(server);
+rowsApi.register(server);
 
 server.listen(port);
 

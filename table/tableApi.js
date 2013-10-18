@@ -1,6 +1,7 @@
-var repo = require('./repo')
+var repo = require('./tableRepo')
 	eventTypes = require('../eventTypes'),
-	eventStore = require('../eventStore/repo');
+	eventStore = require('../eventStore/eventStoreRepo')
+	tableEvents = require('./tableEvents');
 
 var tables = {};
 
