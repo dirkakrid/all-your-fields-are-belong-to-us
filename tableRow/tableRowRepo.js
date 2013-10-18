@@ -16,11 +16,10 @@ function updateTableRow(event){
 
 function deleteTableRow(event){
 	getModel(event.data.tableId, function(err, model){
-		model.remove({id: event.data.id}, function(err, table){
+		model.remove({_id: event.data.id}, function(err){
 			updateEventStatus(event, 
 				err,
-				"created table: " + table.name,
-				"/tables/" + table.id);
+				"deleted row: " + event.data.id);
 		});
 	});
 }
@@ -69,13 +68,17 @@ function setTableRow(event, tableRow) {
 	tableRow.save(function (err) {
 		updateEventStatus(event, 
 			err,
-			"created row: " + table.name,
+			"set row: " + table.name,
 			"/tables/" + event.data.tableId + "/rows/" + tableRow.id);
 	  });
 }
 
 function updateEventStatus(event, err, history, ref) {
-		event.status = util.format("%j", err) || "done";
+		var status = "done";
+		if(err){
+			status = util.format("%j", err);
+		}
+		event.status = "done";
 		event.history = history;
 		event.ref = ref;
 		event.save();

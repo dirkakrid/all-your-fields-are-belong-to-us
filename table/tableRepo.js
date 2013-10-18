@@ -38,11 +38,11 @@ function updateTable(event){
 }
 
 function deleteTable(event){
-	Table.remove({id: event.data.id}, function(err, table){
+	Table.remove({_id: event.data.id}, function(err){
+		//todo: delete associated tableRows
 		updateEventStatus(event, 
 			err,
-			"created table: " + table.name,
-			"/tables/" + table.id);
+			"deleted table: " + event.data.id);
 	});
 }
 
@@ -69,13 +69,17 @@ function setTable(event, table) {
 	table.save(function (err) {
 		updateEventStatus(event, 
 			err,
-			"created table: " + table.name,
+			"set table: " + table.name,
 			"/tables/" + table.id);
 	  });
 }
 
 function updateEventStatus(event, err, history, ref) {
-		event.status = util.format("%j", err) || "done";
+		var status = "done";
+		if(err){
+			status = util.format("%j", err);
+		}
+		event.status = "done";
 		event.history = history;
 		event.ref = ref;
 		event.save();
