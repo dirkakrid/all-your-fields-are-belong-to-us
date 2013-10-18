@@ -1,8 +1,9 @@
-var mongoose = require('mongoose/');
+var mongoose = require('mongoose');
 var restify = require('restify');  
 
 var config = require('./config');
-
+var events = require('./events');
+var tableEvents = require('./table.events').init();
 var mongodbPort = process.env.PORT || 8888;
 
 /* 
@@ -41,12 +42,12 @@ mongodbServer.use(restify.bodyParser());
 
 // Create a schema for our data
 var MessageSchema = new Schema({
-  type: String, 
+  type: String, //add-table, update-table, delete-table, add-row, update-row, delete-row
   data: {}, //schemaless (i.e. Mixed)
   user: String,
   date: Date,
-  status: String,
-  history: String
+  status: String, //pending, done
+  history: String //for audit.  i.e. allen added table ....
 });
 
 
@@ -81,8 +82,13 @@ var postMessage = function(req, res, next) {
   message.data = req.params.data;
   message.date = new Date();
   message.status = "pending";
-  message.save(function () {
-    res.send(req.body);
+  message.save(function (err, result) {
+    console.log('emit event ', message.type);
+    events.emit(message.type, message);
+    //todo: process event
+    res.send({
+      eventid: result.id
+    });
   });
 }
 
@@ -98,5 +104,5 @@ mongodbServer.listen(mongodbPort, function() {
 
 });
 
-mongodbServer.get('/messages', getMessages);
-mongodbServer.post('/messages', postMessage);
+mongodbServer.get('/events', getMessages);
+mongodbServer.post('/events', postMessage);
