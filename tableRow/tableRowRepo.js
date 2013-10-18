@@ -21,7 +21,7 @@ function deleteTableRow(event){
 
 function getOne(tableId, rowId, callback){
 	getModel(tableId, function(err, model){
-		model.findById(id, callback);
+		model.findById(rowId, callback);
 	});
 }
 
