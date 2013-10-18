@@ -5,6 +5,7 @@ var restify = require('restify'),
 	events = require('./events'),
 	tableRows = require('./tableRows');
 
+var restify = require('restify')
 
 var server = restify.createServer(),
     port = process.env.PORT || 8081;
