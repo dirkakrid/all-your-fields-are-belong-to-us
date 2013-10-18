@@ -3,10 +3,8 @@
 var restify = require('restify'),
 	tableApi = require('./table/tableApi'),
 	eventApi = require('./eventStore/eventStoreApi'),
-	rowsApi = require('./api/tableRows'),
+	rowsApi = require('./tableRow/tableRowApi'),
 	mongoose = require('./mongodb');
-
-var restify = require('restify')
 
 var server = restify.createServer(),
     port = process.env.PORT || 8081;

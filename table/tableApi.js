@@ -1,18 +1,9 @@
-var repo = require('./tableRepo')
+var repo = require('./tableRepo'),
+	tableEvents = require('./tableEvents'),
 	eventTypes = require('../eventTypes'),
-	eventStore = require('../eventStore/eventStoreRepo')
-	tableEvents = require('./tableEvents');
+	eventStore = require('../eventStore/eventStoreRepo');
 
 var tables = {};
-
-function generateUuid() {
-	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-	    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-	    return v.toString(16);
-	});
-
-	return uuid;
-};
 
 tables.getAll = function (req, resp, next) {
 	repo.getAll(function(err,data){
@@ -48,7 +39,6 @@ tables.edit = function (req, resp, next) {
 			resp.status = 200;
 			resp.send(result);
 	});
-
 };
 
 tables.del = function (req, resp, next) {

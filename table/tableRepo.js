@@ -29,14 +29,14 @@ function createTable(event){
 }
 
 function updateTable(event){
-	var table = Table.findById(event.data.tableId, function(err, table){
+	var table = Table.findById(event.data.id, function(err, table){
 		//todo: error handling
 		setTable(event, table);
 	})
 }
 
 function deleteTable(event){
-	Table.remove({id: event.data.tableId}, null);
+	Table.remove({id: event.data.id}, null);
 }
 
 function getOne(id, callback){
