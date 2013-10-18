@@ -50,7 +50,7 @@ function getAll(callback){
 function setTable(event, table) {
 	console.log(event);
 	console.log(table);
-	table.name = event.data.tableName;
+	table.name = event.data.name;
 	table.fields = [];
 
 	//todo: validate unique field names
