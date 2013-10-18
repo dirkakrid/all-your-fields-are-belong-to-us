@@ -111,7 +111,7 @@ Data
 --
 
 Get a list of the data rows
-GET /tables/{tableid}/data
+GET /tables/{tableid}/rows
 < 200
 {[
   "/tables/tableid_xxx/data/12345",
@@ -119,17 +119,17 @@ GET /tables/{tableid}/data
 ]}
 
 Get the data for a specific row
-GET /tables/{tableid}/data/{id}
+GET /tables/{tableid}/rows/{id}
 < 200
 {
-  "id": "/tables/tableid_xxx/data/12345",
+  "id": "/tables/tableid_xxx/rows/12345",
   "version": "20131018T131415Z",
   "xxx": "field value 1",
   "yyy": "another field value"
 }
 
 Add a row
-POST /tables/{tableid}/data
+POST /tables/{tableid}/rows
 {
   "xxx": "field value 1",
   "yyy": "another field value"
@@ -140,9 +140,9 @@ POST /tables/{tableid}/data
 }
 
 Edit a row
-PUT /tables/{tableid}/data/{id}
+PUT /tables/{tableid}/rows/{id}
 {
-  "id": "/tables/tableid_xxx/data/12345",
+  "id": "/tables/tableid_xxx/rows/12345",
   "version": "20131018T131415Z",
   "xxx": "field value 1",
   "yyy": "another field value"
@@ -153,7 +153,7 @@ PUT /tables/{tableid}/data/{id}
 }
 
 Delete a row
-DELETE /tables/{tableid}/data/{id}
+DELETE /tables/{tableid}/rows/{id}
 < 200
 {
   "eventid": "eventidxxx"
