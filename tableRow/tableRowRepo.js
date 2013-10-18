@@ -68,7 +68,7 @@ function setTableRow(event, tableRow) {
 	tableRow.save(function (err) {
 		updateEventStatus(event, 
 			err,
-			"set row: " + table.name,
+			"set row: " + tableRow.id,
 			"/tables/" + event.data.tableId + "/rows/" + tableRow.id);
 	  });
 }
