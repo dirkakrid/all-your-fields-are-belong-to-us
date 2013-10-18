@@ -20,7 +20,7 @@ var getAll = function(callback) {
   Event.find().sort('date', -1).execFind(callback);
 };
 
-function getOne(id, callback){
+var getOne = function(id, callback){
   Event.findById(id, callback);
 }
 
@@ -42,4 +42,5 @@ var publish = function(user, type, data, callback) {
 };
 
 exports.getAll = getAll;
+exports.getOne = getOne;
 exports.publish = publish;

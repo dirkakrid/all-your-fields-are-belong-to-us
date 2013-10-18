@@ -4,7 +4,7 @@ var mongoose = require('../mongodb');
 var FieldSchema = new mongoose.Schema({
   	id: String,
   	name: String,
-  	type: String  
+  	type: String 
 });
 
 var TableSchema = new mongoose.Schema({
