@@ -12,8 +12,8 @@ function generateUuid() {
 tables.getAll = function (req, resp, next) {
 	var resultData = { 
 		tables: [
-		    "/tables/{id}",
-		    "/tables/{id2}"
+		    "/tables/1",
+		    "/tables/2"
 	    ]
 	};
 	resp.send(JSON.stringify(resultData));
