@@ -51,7 +51,7 @@ function buildModel(table) {
 
 	var schema = new mongoose.Schema(schemaDef);
 
-	return mongoose.model(table.name, schema);
+	return mongoose.model('table_' + table.id, schema);
 }
 
 function setTableRow(event, tableRow) {
