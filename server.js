@@ -3,7 +3,7 @@
 var restify = require('restify'),
 	tables = require('./tables'),
 	events = require('./events'),
-	tableData = require('./table_data');
+	tableRows = require('./tableRows');
 
 
 var server = restify.createServer(),
@@ -18,7 +18,7 @@ function respond(req, res, next) {
 server.get('/hello/:name', respond);
 tables.register(server);
 events.register(server);
-tableData.register(server);
+tableRows.register(server);
 
 server.listen(port);
 
