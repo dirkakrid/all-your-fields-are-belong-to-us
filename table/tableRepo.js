@@ -1,4 +1,5 @@
-var mongoose = require('../mongodb');
+var mongoose = require('../mongodb'),
+	util = require('util');
 
 // Create a schema for our data
 var FieldSchema = new mongoose.Schema({
@@ -37,7 +38,12 @@ function updateTable(event){
 }
 
 function deleteTable(event){
-	Table.remove({id: event.data.id}, null);
+	Table.remove({id: event.data.id}, function(err, table){
+		updateEventStatus(event, 
+			err,
+			"created table: " + table.name,
+			"/tables/" + table.id);
+	});
 }
 
 function getOne(id, callback){
@@ -60,15 +66,16 @@ function setTable(event, table) {
 	};
 
 	//todo: error handling
-	table.save(function () {
+	table.save(function (err) {
 		updateEventStatus(event, 
+			err,
 			"created table: " + table.name,
 			"/tables/" + table.id);
 	  });
 }
 
-function updateEventStatus(event, history, ref) {
-		event.status = "done";
+function updateEventStatus(event, err, history, ref) {
+		event.status = util.format("%j", err) || "done";
 		event.history = history;
 		event.ref = ref;
 		event.save();

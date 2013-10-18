@@ -1,5 +1,6 @@
-var mongoose = require('../mongodb')
-	tableRepo = require('../table/tableRepo');
+var mongoose = require('../mongodb'),
+	tableRepo = require('../table/tableRepo'),
+	util = require('util');
 
 function createTableRow(event){
 	getModel(event.data.tableId, function(err, model){
@@ -15,7 +16,12 @@ function updateTableRow(event){
 
 function deleteTableRow(event){
 	getModel(event.data.tableId, function(err, model){
-		model.remove({id: event.data.id});
+		model.remove({id: event.data.id}, function(err, table){
+			updateEventStatus(event, 
+				err,
+				"created table: " + table.name,
+				"/tables/" + table.id);
+		});
 	});
 }
 
@@ -60,15 +66,16 @@ function setTableRow(event, tableRow) {
 		tableRow[k] = event.data[k];
 	}
 	//todo: error handling
-	tableRow.save(function () {
+	tableRow.save(function (err) {
 		updateEventStatus(event, 
+			err,
 			"created row: " + table.name,
 			"/tables/" + event.data.tableId + "/rows/" + tableRow.id);
 	  });
 }
 
-function updateEventStatus(event, history, ref) {
-		event.status = "done";
+function updateEventStatus(event, err, history, ref) {
+		event.status = util.format("%j", err) || "done";
 		event.history = history;
 		event.ref = ref;
 		event.save();
