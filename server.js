@@ -3,12 +3,15 @@
 var restify = require('restify'),
 	tables = require('./api/tables'),
 	events = require('./api/events'),
-	tableRows = require('./api/tableRows');
+	tableRows = require('./api/tableRows'),
+	mongodb = require('./mongodb');
 
 var restify = require('restify')
 
 var server = restify.createServer(),
     port = process.env.PORT || 8081;
+
+server.use(restify.bodyParser());
 
 function respond(req, res, next) {
   res.send('hello ' + req.params.name);
@@ -20,6 +23,8 @@ server.get('/hello/:name', respond);
 tables.register(server);
 events.register(server);
 tableRows.register(server);
+
+mongodb.connect();
 
 server.listen(port);
 
