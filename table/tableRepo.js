@@ -21,7 +21,8 @@ var Table = mongoose.model('Tables', TableSchema);
   user: String,
   date: Date,
   status: String,
-  history: String
+  history: String,
+  ref: String
 */
 
 function createTable(event){
@@ -48,8 +49,6 @@ function getAll(callback){
 }
 
 function setTable(event, table) {
-	console.log(event);
-	console.log(table);
 	table.name = event.data.name;
 	table.fields = [];
 
@@ -62,13 +61,16 @@ function setTable(event, table) {
 
 	//todo: error handling
 	table.save(function () {
-		updateEventStatus(event, "created table: " + table.name);
+		updateEventStatus(event, 
+			"created table: " + table.name,
+			"/tables/" + table.id);
 	  });
 }
 
-function updateEventStatus(event, history) {
+function updateEventStatus(event, history, ref) {
 		event.status = "done";
 		event.history = history;
+		event.ref = ref;
 		event.save();
 }
 

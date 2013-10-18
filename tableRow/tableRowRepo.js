@@ -59,16 +59,18 @@ function setTableRow(event, tableRow) {
 	for(var k in event.data){
 		tableRow[k] = event.data[k];
 	}
-
 	//todo: error handling
 	tableRow.save(function () {
-		updateEventStatus(event, "set tableRow: " + tableRow.name);
+		updateEventStatus(event, 
+			"created row: " + table.name,
+			"/tables/" + event.data.tableId + "/rows/" + tableRow.id);
 	  });
 }
 
-function updateEventStatus(event, history) {
+function updateEventStatus(event, history, ref) {
 		event.status = "done";
 		event.history = history;
+		event.ref = ref;
 		event.save();
 }
 
