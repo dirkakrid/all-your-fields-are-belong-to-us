@@ -1,5 +1,5 @@
 
-exports.eventTypes = {
+exports = module.exports = {
 	table : {
 		add: 'add-table',
 		update: 'update-table',

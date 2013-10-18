@@ -6,8 +6,6 @@ var mongoURI = ( process.env.PORT )
 	? config.creds.mongoose_auth_mongohq 
 	: config.creds.mongoose_auth_local;
 
-function connect(){
-	mongoose.connect(mongoURI);
-}
+mongoose.connect(mongoURI);
 
-exports.connect = connect;
+exports = module.exports = mongoose;

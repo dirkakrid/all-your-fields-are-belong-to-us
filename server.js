@@ -1,10 +1,11 @@
 /* jshint node: true */
 'use strict';
 var restify = require('restify'),
-	tables = require('./api/tables'),
-	events = require('./api/events'),
+	tables = require('./tables/api'),
+	tableEvents = require('./tables/events'),
+	events = require('./eventStore/api'),
 	tableRows = require('./api/tableRows'),
-	mongodb = require('./mongodb');
+	mongoose = require('./mongodb');
 
 var restify = require('restify')
 
@@ -23,8 +24,6 @@ server.get('/hello/:name', respond);
 tables.register(server);
 events.register(server);
 tableRows.register(server);
-
-mongodb.connect();
 
 server.listen(port);
 

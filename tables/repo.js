@@ -1,13 +1,15 @@
-var mongoose = require('mongoose/');
+var mongoose = require('../mongodb');
 
 // Create a schema for our data
-var TableSchema = new mongoose.Schema({
-  name: String,
-  fields: [{
+var FieldSchema = new mongoose.Schema({
   	id: String,
   	name: String,
-  	type: String
-  }],
+  	type: String  
+});
+
+var TableSchema = new mongoose.Schema({
+  name: String,
+  fields: [FieldSchema],
   version: String
 });
 
@@ -37,11 +39,12 @@ function deleteTable(event){
 	Table.remove({id: event.data.tableId}, null);
 }
 
-function getTable(callback){
-	var table = Table.findById(event.data.tableId, function(err, table){
-		//todo: error handling
-		callback(err, table);
-	})
+function getOne(id, callback){
+	Table.findById(id, callback);
+}
+
+function getAll(callback){
+	Table.find().sort('name', 1).execFind(callback);
 }
 
 function setTable(event, table) {
@@ -71,5 +74,7 @@ function updateEventStatus(event, history) {
 
 exports.createTable = createTable;
 exports.updateTable = updateTable;
-exports.getTable = getTable;
 exports.deleteTable = deleteTable;
+
+exports.getOne = getOne;
+exports.getAll = getAll;
