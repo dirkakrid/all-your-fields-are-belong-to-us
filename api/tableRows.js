@@ -1,6 +1,6 @@
-var tableData = {};
+var tableRows = {};
 
-tableData.getAll = function(req, resp, next) {
+tableRows.getAll = function(req, resp, next) {
 	var tableid = req.params.tableid,
 	    tableUrl = "/tables/tableid";
 
@@ -15,7 +15,7 @@ tableData.getAll = function(req, resp, next) {
 	resp.status = 200;
 }
 
-tableData.getOne = function(req, resp, next) {
+tableRows.getOne = function(req, resp, next) {
 	var tableid = req.params.tableid,
 	    tableUrl = "/tables/tableid";
 
@@ -29,7 +29,7 @@ tableData.getOne = function(req, resp, next) {
 	resp.status = 200;
 }
 
-tableData.addRow = function(req, resp, next) {
+tableRows.addRow = function(req, resp, next) {
 	var tableid = req.params.tableid,
 	    tableUrl = "/tables/tableid";
 
@@ -44,7 +44,7 @@ tableData.addRow = function(req, resp, next) {
 	resp.status = 200;
 }
 
-tableData.editRow = function(req, resp, next) {
+tableRows.editRow = function(req, resp, next) {
 	var tableid = req.params.tableid,
 	    tableUrl = "/tables/tableid";
 
@@ -59,7 +59,7 @@ tableData.editRow = function(req, resp, next) {
 	resp.status = 200;
 }
 
-tableData.deleteRow = function(req, resp, next) {
+tableRows.deleteRow = function(req, resp, next) {
 	var tableid = req.params.tableid,
 	    tableUrl = "/tables/tableid";
 
@@ -75,9 +75,9 @@ tableData.deleteRow = function(req, resp, next) {
 }
 
 exports.register = function(server) {
-	server.get('/tables/:tableid/rows', tableData.getAll);
-	server.get('/tables/:tableid/rows/:id', tableData.getOne);
-	server.post('/tables/:tableid/rows', tableData.addRow);
-	server.put('/tables/:tableid/rows/:id', tableData.editRow);
-	server.del('/tables/:tableid/rows/:id', tableData.deleteRow);
+	server.get('/tables/:tableid/rows', tableRows.getAll);
+	server.get('/tables/:tableid/rows/:id', tableRows.getOne);
+	server.post('/tables/:tableid/rows', tableRows.addRow);
+	server.put('/tables/:tableid/rows/:id', tableRows.editRow);
+	server.del('/tables/:tableid/rows/:id', tableRows.deleteRow);
 }

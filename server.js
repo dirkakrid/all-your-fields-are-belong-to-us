@@ -1,9 +1,9 @@
 /* jshint node: true */
 'use strict';
 var restify = require('restify'),
-	tables = require('./tables'),
-	events = require('./events'),
-	tableRows = require('./tableRows');
+	tables = require('./api/tables'),
+	events = require('./api/events'),
+	tableRows = require('./api/tableRows');
 
 var restify = require('restify')
 
